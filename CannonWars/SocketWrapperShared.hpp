@@ -47,6 +47,13 @@ using std::string;
 using std::unordered_set;
 
 
+//sfml
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+
+
 #include "StringUtils.hpp"
 #include "SocketAddress.hpp"
 #include "SocketAddressFactory.hpp"
@@ -58,8 +65,8 @@ using std::unordered_set;
 #include "MemoryStream.hpp"
 #include "MemoryBitStream.hpp"
 //#include "Player.hpp"
-//#include "Client.hpp"
-//#include "Server.hpp"
+#include "../CannonWarsClient/Client.hpp"
+#include "../CannonWarsServer/Server.hpp"
 
 
 
