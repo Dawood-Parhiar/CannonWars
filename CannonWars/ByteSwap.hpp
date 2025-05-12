@@ -1,3 +1,5 @@
+#pragma once
+
 inline uint16_t ByteSwap2(uint16_t inData)
 {
 	return (inData >> 8) | (inData << 8);

@@ -1,3 +1,6 @@
+
+
+
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
@@ -47,12 +50,11 @@ using std::string;
 using std::unordered_set;
 
 
-//sfml
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-
+//
+//#include <SFML/Graphics.hpp>
+//#include <SFML/Audio.hpp>
+//#include <SFML/Window.hpp>
+//#include <SFML/System.hpp>
 
 #include "StringUtils.hpp"
 #include "SocketAddress.hpp"
@@ -63,11 +65,9 @@ using std::unordered_set;
 #include "Math.hpp"
 #include "ByteSwap.hpp"
 #include "MemoryStream.hpp"
-#include "MemoryBitStream.hpp"
-//#include "Player.hpp"
+#include "Player.hpp"
 #include "../CannonWarsClient/Client.hpp"
 #include "../CannonWarsServer/Server.hpp"
-
 
 
 

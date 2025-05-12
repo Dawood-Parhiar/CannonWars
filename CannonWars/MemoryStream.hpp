@@ -13,7 +13,7 @@ public:
 	~OutputMemoryStream() { std::free(mBuffer); }
 
 	//get a pointer to the data in the stream
-	const 	char*		GetBufferPtr()	const { return mBuffer; }
+	const 	char* GetBufferPtr()	const { return mBuffer; }
 	uint32_t	GetLength()		const { return mHead; }
 
 	void		Write(const void* inData,
@@ -87,7 +87,7 @@ public:
 private:
 	void		ReallocBuffer(uint32_t inNewLength);
 
-	char*		mBuffer;
+	char* mBuffer;
 	uint32_t	mHead;
 	uint32_t	mCapacity;
 
@@ -153,7 +153,7 @@ public:
 	}*/
 
 private:
-	char*		mBuffer;
+	char* mBuffer;
 	uint32_t	mHead;
 	uint32_t	mCapacity;
 
