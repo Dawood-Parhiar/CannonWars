@@ -178,6 +178,7 @@ struct GetRequiredBits
 namespace RoboMath
 {
 	const float PI = 3.1415926535f;
+
 	float GetRandomFloat();
 
 	Vector3 GetRandomVector(const Vector3& inMin, const Vector3& inMax);
@@ -190,6 +191,11 @@ namespace RoboMath
 	inline float ToDegrees(float inRadians)
 	{
 		return inRadians * 180.0f / PI;
+	}
+
+	inline float ToRadians(float inDegrees)
+	{
+		return inDegrees * PI / 180.0f;
 	}
 }
 

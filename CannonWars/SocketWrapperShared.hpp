@@ -38,6 +38,7 @@ const int SOCKET_ERROR = -1;
 #include "deque"
 #include "unordered_set"
 #include "cassert"
+#include <fstream>
 
 using std::shared_ptr;
 using std::unique_ptr;
@@ -48,13 +49,56 @@ using std::deque;
 using std::unordered_map;
 using std::string;
 using std::unordered_set;
+using std::ifstream;
+
+class Ship;
+class GameObject;
+class OutputMemoryStream;
+class InputMemoryStream;
 
 
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 //
-//#include <SFML/Graphics.hpp>
-//#include <SFML/Audio.hpp>
-//#include <SFML/Window.hpp>
-//#include <SFML/System.hpp>
+//
+//#include "Math.hpp"
+//
+//#include "GameObject.hpp"
+//#include "GameObjectRegistry.hpp"
+//#include "Ship.hpp"
+//#include "InputState.hpp"
+//#include "MemoryBitStream.hpp"
+//#include "InFlightPacket.hpp"
+//#include "TransmissionData.hpp"
+//
+//#include "Category.hpp"
+//#include "Projectile.hpp"
+//#include "Engine.hpp"
+//#include "World.hpp"
+//#include "AckRange.hpp"
+//#include "DeliveryNotificationManager.hpp"
+//
+//#include "Timing.hpp"
+//#include "ConnectionDetails.hpp"
+//
+//
+//#include "StringUtils.hpp"
+//#include "SocketAddress.hpp"
+//#include "SocketAddressFactory.hpp"
+//#include "UDPSocket.hpp"
+//#include "TCPSocket.hpp"
+//#include "SocketUtil.hpp"
+//#include "ByteSwap.hpp"
+//#include "MemoryBitStream.hpp"
+//
+//#include "Player.hpp"
+//#include "../CannonWarsClient/Client.hpp"
+//#include "../CannonWarsServer/Server.hpp"
+
+
+#include "Math.hpp"
 
 #include "StringUtils.hpp"
 #include "SocketAddress.hpp"
@@ -62,14 +106,43 @@ using std::unordered_set;
 #include "UDPSocket.hpp"
 #include "TCPSocket.hpp"
 #include "SocketUtil.hpp"
-#include "Math.hpp"
+
 #include "ByteSwap.hpp"
-#include "MemoryStream.hpp"
-#include "Player.hpp"
-#include "../CannonWarsClient/Client.hpp"
-#include "../CannonWarsServer/Server.hpp"
+#include "LinkingContext.hpp"
+#include "MemoryBitStream.hpp"
 
+#include "TransmissionData.hpp"
+#include "InFlightPacket.hpp"
+#include "AckRange.hpp"
+#include "DeliveryNotificationManager.hpp"
 
+#include "InputAction.h"
+#include "InputState.hpp"
+//#include "Move.hpp"
+//#include "MoveList.h"
+
+#include "GameObject.hpp"
+#include "GameObjectRegistry.hpp"
+#include "Ship.hpp"
+#include "World.hpp"
+#include "Timing.hpp"
+
+//#include "Yarn.h"
+#include "StringUtils.hpp"
+//#include "ScoreBoardManager.h"
+
+//#include "SoundManager.h"
+
+//#include "WeightedTimedMovingAverage.h"
+//#include "ReplicationCommand.h"
+//#include "NetworkManager.hpp"
+#include "Engine.hpp"
+
+//#include "Trigonometry.hpp"
+//#include "VectorAlgebra2D.hpp"
+//#include "Line.hpp"
+//#include "ShadowFactory.hpp"
+#include "ConnectionDetails.hpp"
 
 
 #include <iostream>

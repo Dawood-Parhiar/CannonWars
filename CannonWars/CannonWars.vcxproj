@@ -106,7 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CannonWars\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,11 +136,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AckRange.hpp" />
     <ClInclude Include="ByteSwap.hpp" />
     <ClInclude Include="Category.hpp" />
+    <ClInclude Include="ConnectionDetails.hpp" />
+    <ClInclude Include="CoreEvent.hpp" />
+    <ClInclude Include="DeliveryNotificationManager.hpp" />
+    <ClInclude Include="Engine.hpp" />
+    <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="GameObjectRegistry.hpp" />
+    <ClInclude Include="InFlightPacket.hpp" />
+    <ClInclude Include="InputAction.h" />
+    <ClInclude Include="InputState.hpp" />
+    <ClInclude Include="LinkingContext.hpp" />
     <ClInclude Include="Math.hpp" />
-    <ClInclude Include="MemoryStream.hpp" />
+    <ClInclude Include="MemoryBitStream.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Projectile.hpp" />
+    <ClInclude Include="Ship.hpp" />
     <ClInclude Include="SocketAddress.hpp" />
     <ClInclude Include="SocketAddressFactory.hpp" />
     <ClInclude Include="SocketUtil.hpp" />
@@ -148,11 +161,25 @@
     <ClInclude Include="SocketWrapperShared.hpp" />
     <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="TCPSocket.hpp" />
+    <ClInclude Include="Timing.hpp" />
+    <ClInclude Include="TransmissionData.hpp" />
     <ClInclude Include="UDPSocket.hpp" />
+    <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MemoryStream.cpp" />
+    <ClCompile Include="AckRange.cpp" />
+    <ClCompile Include="ConnectionDetails.cpp" />
+    <ClCompile Include="CoreEvent.cpp" />
+    <ClCompile Include="DeliveryNotificationManager.cpp" />
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectRegistry.cpp" />
+    <ClCompile Include="InFlightPacket.cpp" />
+    <ClCompile Include="InputState.cpp" />
+    <ClCompile Include="MemoryBitStream.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="SocketAddressFactory.cpp" />
     <ClCompile Include="SocketUtil.cpp" />
@@ -161,7 +188,9 @@
     </ClCompile>
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="TCPSocket.cpp" />
+    <ClCompile Include="Timing.cpp" />
     <ClCompile Include="UDPSocket.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

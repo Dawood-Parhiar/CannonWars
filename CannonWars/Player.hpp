@@ -5,8 +5,8 @@ public:
 	Player();
 	uint32_t GetHealth() const;
 	uint32_t GetAmmo() const;
-	void Write(OutputMemoryStream& out_stream) const;
-	void Read(InputMemoryStream& in_stream);
+	void Write(OutputMemoryBitStream& out_stream) const;
+	void Read(InputMemoryBitStream& in_stream);
 	void ToString() const;
 
 private:
