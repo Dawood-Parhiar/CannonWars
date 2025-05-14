@@ -74,42 +74,6 @@ void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
 	mIsShooting = inInputState.IsShooting();
 }
 
-//void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
-//{
-//	// 1) Get raw axis input (-1, 0, +1)
-//	float ix = inInputState.GetDesiredHorizontalDelta();  // A = -1, D = +1
-//	float iy = inInputState.GetDesiredVerticalDelta();    // S = -1, W = +1
-//
-//	// 2) Build a vector; invert Y if your world Y+ is down (SFML), else drop the '* -1'
-//	sf::Vector2f inVec(ix, -iy);
-//
-//	// 3) If there is any input, normalize and compute angle; otherwise zero thrust
-//	if (inVec.x != 0.f || inVec.y != 0.f)
-//	{
-//		// normalize
-//		float len = std::sqrt(inVec.x * inVec.x + inVec.y * inVec.y);
-//		inVec.x /= len;
-//		inVec.y /= len;
-//
-//		// store thrust direction
-//		mThrustDir = inVec;
-//
-//		// compute angle in radians, then to degrees
-//		// atan2(y, x): zero is along +X axis, positive rotates toward +Y
-//		float angleRad = std::atan2(inVec.y, inVec.x);
-//		float angleDeg = angleRad * (180.f / 3.14159265f);
-//
-//		SetRotation(angleDeg);
-//	}
-//	else
-//	{
-//		mThrustDir = { 0.f, 0.f };
-//	}
-//
-//	// 4) Shooting remains as before
-//	mIsShooting = inInputState.IsShooting();
-//}
-
 
 void Ship::SimulateMovement(float inDeltaTime)
 {
@@ -136,55 +100,135 @@ void Ship::ProcessCollisionsWithScreenWalls()
 	SetLocation(pos);
 }
 
+//void Ship::ProcessCollisions()
+//{
+//	// 1) Bounce off screen edges
+//	ProcessCollisionsWithScreenWalls();
+//
+//	// 2) Gather our radius & location
+//	const float sourceRadius = GetCollisionRadius();
+//	const Vector3 sourceLoc = GetLocation();
+//
+//	// 3) Brute-force check every other GameObject
+//	for (auto& goPtr : World::sInstance->GetGameObjects())
+//	{
+//		Ship* other = goPtr->GetAsShip();
+//		if (!other || other == this || other->DoesWantToDie())
+//			continue;
+//
+//		// 4) Sphere-sphere test in 2D
+//		const Vector3 otherLoc = other->GetLocation();
+//		const float   otherRadius = other->GetCollisionRadius();
+//
+//		Vector3 delta = otherLoc - sourceLoc;
+//		float   distSq = delta.LengthSq2D();
+//		float   collideDist = sourceRadius + otherRadius;
+//
+//		if (distSq < (collideDist * collideDist))
+//		{
+//			// 5) Let the other ship decide if it wants to react (e.g. take damage)
+//			if (other->HandleCollisionWithShip(this))
+//			{
+//				// 6) Push us out of collision
+//				Vector3 dir = delta;
+//				dir.Normalize2D();
+//				SetLocation(otherLoc - dir * collideDist);
+//
+//				// 7) Compute relative velocity along dir
+//				Vector3 relVel = mVelocity - other->mVelocity;
+//				float   velAlong = Dot2D(relVel, dir);
+//
+//				if (velAlong > 0.f)
+//				{
+//					// 8) Simple impulse resolution
+//					Vector3 impulse = velAlong * dir;
+//					mVelocity -= impulse * mShipRestitution;
+//					other->mVelocity += impulse * other->mShipRestitution;
+//				}
+//			}
+//		}
+//	}
+//}
+
+
 void Ship::ProcessCollisions()
 {
-	// 1) Bounce off screen edges
-	ProcessCollisionsWithScreenWalls();
+	//right now just bounce off the sides..
+	//ProcessCollisionsWithScreenWalls();
 
-	// 2) Gather our radius & location
-	const float sourceRadius = GetCollisionRadius();
-	const Vector3 sourceLoc = GetLocation();
+	float sourceRadius = GetCollisionRadius();
+	Vector3 sourceLocation = GetLocation();
 
-	// 3) Brute-force check every other GameObject
-	for (auto& goPtr : World::sInstance->GetGameObjects())
+	//now let's iterate through the world and see what we hit...
+	//note: since there's a small number of objects in our game, this is fine.
+	//but in a real game, brute-force checking collisions against every other object is not efficient.
+	//it would be preferable to use a quad tree or some other structure to minimize the
+	//number of collisions that need to be tested.
+	for (auto goIt = World::sInstance->GetGameObjects().begin(), end = World::sInstance->GetGameObjects().end(); goIt != end; ++goIt)
 	{
-		Ship* other = goPtr->GetAsShip();
-		if (!other || other == this || other->DoesWantToDie())
-			continue;
-
-		// 4) Sphere-sphere test in 2D
-		const Vector3 otherLoc = other->GetLocation();
-		const float   otherRadius = other->GetCollisionRadius();
-
-		Vector3 delta = otherLoc - sourceLoc;
-		float   distSq = delta.LengthSq2D();
-		float   collideDist = sourceRadius + otherRadius;
-
-		if (distSq < (collideDist * collideDist))
+		GameObject* target = goIt->get();
+		if (target->GetClassId() == 'SHIP')
 		{
-			// 5) Let the other ship decide if it wants to react (e.g. take damage)
-			if (other->HandleCollisionWithShip(this))
+		}
+		if (target != this && !target->DoesWantToDie())
+		{
+			//simple collision test for spheres- are the radii summed less than the distance?
+			Vector3 targetLocation = target->GetLocation();
+			float targetRadius = target->GetCollisionRadius();
+
+			Vector3 delta = targetLocation - sourceLocation;
+			float distSq = delta.LengthSq2D();
+			float collisionDist = (sourceRadius + targetRadius);
+			if (distSq < (collisionDist * collisionDist))
 			{
-				// 6) Push us out of collision
-				Vector3 dir = delta;
-				dir.Normalize2D();
-				SetLocation(otherLoc - dir * collideDist);
+				//first, tell the other guy there was a collision with a cat, so it can do something...
 
-				// 7) Compute relative velocity along dir
-				Vector3 relVel = mVelocity - other->mVelocity;
-				float   velAlong = Dot2D(relVel, dir);
-
-				if (velAlong > 0.f)
+				if (target->HandleCollisionWithShip(this))
 				{
-					// 8) Simple impulse resolution
-					Vector3 impulse = velAlong * dir;
-					mVelocity -= impulse * mShipRestitution;
-					other->mVelocity += impulse * other->mShipRestitution;
+					//okay, you hit something!
+					//so, project your location far enough that you're not colliding
+					Vector3 dirToTarget = delta;
+					dirToTarget.Normalize2D();
+					Vector3 acceptableDeltaFromSourceToTarget = dirToTarget * collisionDist;
+					//important note- we only move this cat. the other cat can take care of moving itself
+					SetLocation(targetLocation - acceptableDeltaFromSourceToTarget);
+
+
+					Vector3 relVel = mVelocity;
+
+					//if other object is a cat, it might have velocity, so there might be relative velocity...
+					Ship* targetCat = target->GetAsShip();
+					if (targetCat)
+					{
+						relVel -= targetCat->mVelocity;
+					}
+
+					//got vel with dir between objects to figure out if they're moving towards each other
+					//and if so, the magnitude of the impulse ( since they're both just balls )
+					float relVelDotDir = Dot2D(relVel, dirToTarget);
+
+					if (relVelDotDir > 0.f)
+					{
+						Vector3 impulse = relVelDotDir * dirToTarget;
+
+						if (targetCat)
+						{
+							mVelocity -= impulse;
+							mVelocity *= mShipRestitution;
+						}
+						else
+						{
+							mVelocity -= impulse * 2.f;
+							mVelocity *= mWallRestitution;
+						}
+					}
 				}
 			}
 		}
 	}
+
 }
+
 
 uint32_t Ship::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const
 {

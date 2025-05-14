@@ -92,7 +92,7 @@ class InputMemoryStream;
 #include "Ship.hpp"
 #include "World.hpp"
 #include "Timing.hpp"
-
+#include "Mouse.h"
 #include "Yarn.h"
 #include "StringUtils.hpp"
 #include "ScoreBoardManager.h"

@@ -150,6 +150,7 @@
     <ClInclude Include="LinkingContext.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="MemoryBitStream.hpp" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="MoveList.h" />
     <ClInclude Include="NetworkManager.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="InputState.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MemoryBitStream.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="MoveList.cpp" />
     <ClCompile Include="NetworkManager.cpp" />

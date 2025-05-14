@@ -10,7 +10,7 @@
 #include "Server.hpp"
 
 #include "ShipServer.h"
-
+#include "MouseServer.h"
 #include "YarnServer.h"
 
 #include "PersistantPlayerSprites.h"

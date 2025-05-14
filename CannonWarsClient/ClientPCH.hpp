@@ -26,6 +26,7 @@
 #include "PlayerTextureGenerator.h"
 
 #include "ShipClient.h"
+#include "MouseClient.h"
 #include "YarnClient.hpp"
 
 //#include <SoundManager.h>

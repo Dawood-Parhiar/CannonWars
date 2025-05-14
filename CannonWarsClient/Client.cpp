@@ -30,6 +30,9 @@ bool Client::StaticInit()
 Client::Client()
 {
 	GameObjectRegistry::sInstance->RegisterCreationFunction('SHIP', ShipClient::StaticCreate);
+	
+	GameObjectRegistry::sInstance->RegisterCreationFunction('MOUS', MouseClient::StaticCreate);
+
 	GameObjectRegistry::sInstance->RegisterCreationFunction('YARN', YarnClient::StaticCreate);
 
 	//string destination = StringUtils::GetCommandLineArg( 1 );
