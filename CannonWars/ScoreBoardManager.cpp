@@ -57,6 +57,13 @@ ScoreBoardManager::Entry* ScoreBoardManager::GetEntry( uint32_t inPlayerId )
 
 bool ScoreBoardManager::RemoveEntry( uint32_t inPlayerId )
 {
+	if (this == nullptr) return false;                // catch a null-manager call
+	// optional: check a magic signature in your class to see if it's been destroyed
+
+	// ensure begin/end even make sense
+	if (mEntries.size() == 0)
+		return false;
+
 	for( auto eIt = mEntries.begin(), endIt = mEntries.end(); eIt != endIt; ++eIt )
 	{
 		if( ( *eIt ).GetPlayerId() == inPlayerId )
