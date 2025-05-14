@@ -21,16 +21,15 @@ SFTextureManager::SFTextureManager()
 	CacheTexture("winner_screen", "../Assets/winner_screen.png");
 
 	// Player textures.
-	CacheTexture("hitman", "../Assets/hitman.png");
-	CacheTexture("hatman", "../Assets/hatman.png");
-	CacheTexture("man_blue", "../Assets/man_blue.png");
-	CacheTexture("man_brown", "../Assets/man_brown.png");
-	CacheTexture("man_old", "../Assets/man_old.png");
-	CacheTexture("robot", "../Assets/robot.png");
-	CacheTexture("soldier", "../Assets/soldier.png");
-	CacheTexture("woman", "../Assets/woman.png");
-	CacheTexture("zombie", "../Assets/zombie.png");
-
+	CacheTexture("yellow_ship", "../Assets/ships/yellow_ship.png");;
+	CacheTexture("white_ship", "../Assets/ships/white_ship.png");
+	CacheTexture("grey_ship", "../Assets/ships/grey_ship.png");
+	CacheTexture("red_ship", "../Assets/ships/red_ship.png");
+	CacheTexture("green_ship", "../Assets/ships/green_ship.png");
+	CacheTexture("blue_ship", "../Assets/ships/blue_ship.png");
+	CacheTexture("pirate_ship", "../Assets/ships/pirate_ship.png");
+	CacheTexture("broken_ship", "../Assets/ships/broken_ship.png");
+	
 	// Healthbar frames.
 	CacheTexture("health10", "../Assets/healthbar/health10.png");
 	CacheTexture("health9", "../Assets/healthbar/health9.png");

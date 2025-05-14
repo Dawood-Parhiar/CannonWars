@@ -17,6 +17,9 @@ public:
 	int	 GetComponentIndex(SFSpriteComponent* inComponent) const;
 
 	sf::Vector2f FindCatCentre();
+	void SetLocalShipSpawned(bool cond);
+	bool   IsLocalShipSpawned() const { return m_localShipSpawned; }
+
 
 private:
 
@@ -37,4 +40,5 @@ private:
 	sf::Sprite m_diedScreen;
 	sf::Sprite m_winnerScreen;
 	sf::Vector2f m_lastCatPos;
+	bool m_localShipSpawned = false;
 };

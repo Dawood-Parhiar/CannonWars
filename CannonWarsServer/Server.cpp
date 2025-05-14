@@ -128,7 +128,7 @@ void Server::HandleNewClient(ClientProxyPtr inClientProxy)
 
 void Server::SpawnCatForPlayer(int inPlayerId)
 {
-	ShipPtr cat = std::static_pointer_cast<Ship>(GameObjectRegistry::sInstance->CreateGameObject('RCAT'));
+	ShipPtr cat = std::static_pointer_cast<Ship>(GameObjectRegistry::sInstance->CreateGameObject('SHIP'));
 	cat->SetColor(ScoreBoardManager::sInstance->GetEntry(inPlayerId)->GetColor());
 	cat->SetPlayerId(inPlayerId);
 

@@ -15,9 +15,9 @@ public:
         ESRS_Color = 1 << 1,
         ESRS_PlayerId = 1 << 2,
         ESRS_Health = 1 << 3,
-        ESRS_Shooting = 1 << 4,
+        //ESRS_Shooting = 1 << 4,
 
-        ESRS_AllState = ESRS_Pose | ESRS_Color | ESRS_PlayerId | ESRS_Health | ESRS_Shooting
+        ESRS_AllState = ESRS_Pose | ESRS_Color | ESRS_PlayerId | ESRS_Health //| ESRS_Shooting
     };
 
     static GameObject* StaticCreate() { return new Ship(); }
@@ -25,10 +25,10 @@ public:
     virtual uint32_t GetAllStateMask() const override { return ESRS_AllState; }
 
     virtual	Ship* GetAsShip() override { return this; }
-    virtual bool HandleCollisionWithShip(Ship* inShip) override
+   /* virtual bool HandleCollisionWithShip(Ship* inShip) override
     {
         return true;
-    }
+    }*/
     virtual void Update() override;
 
 

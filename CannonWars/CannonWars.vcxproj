@@ -140,7 +140,6 @@
     <ClInclude Include="ByteSwap.hpp" />
     <ClInclude Include="Category.hpp" />
     <ClInclude Include="ConnectionDetails.hpp" />
-    <ClInclude Include="CoreEvent.hpp" />
     <ClInclude Include="DeliveryNotificationManager.hpp" />
     <ClInclude Include="Engine.hpp" />
     <ClInclude Include="GameObject.hpp" />
@@ -178,7 +177,6 @@
   <ItemGroup>
     <ClCompile Include="AckRange.cpp" />
     <ClCompile Include="ConnectionDetails.cpp" />
-    <ClCompile Include="CoreEvent.cpp" />
     <ClCompile Include="DeliveryNotificationManager.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />

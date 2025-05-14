@@ -14,7 +14,7 @@ public:
 
 private:
 	std::vector<sf::Sprite> m_spriteTiles;
-
+	sf::Texture             mWaterTex;
 	bool loadSprites();
 };
 #endif

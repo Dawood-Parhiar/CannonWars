@@ -46,7 +46,16 @@ void ReplicationManagerClient::ReadAndDoCreateAction( InputMemoryBitStream& inIn
 		gameObject = GameObjectRegistry::sInstance->CreateGameObject( fourCCName );
 		gameObject->SetNetworkId( inNetworkId );
 		NetworkManagerClient::sInstance->AddToNetworkIdToGameObjectMap( gameObject );
-		
+
+		if (fourCCName == 'SHIP')
+		{
+			auto ship = static_cast<ShipClient*>(gameObject.get());
+			if (ship->GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
+			{
+				SFRenderManager::sInstance->SetLocalShipSpawned(true);
+			}
+		}
+
 		//it had really be the rigth type...
 		assert( gameObject->GetClassId() == fourCCName );
 	}

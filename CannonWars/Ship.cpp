@@ -1,118 +1,114 @@
 ﻿#include "SocketWrapperPCH.hpp"
 
 // somewhere central
-static constexpr float WORLD_WIDTH = 2000.f;
-static constexpr float WORLD_HEIGHT = 1200.f;
+static constexpr float WORLD_WIDTH = 1920.f;
+static constexpr float WORLD_HEIGHT = 5000.f;
 
 
 Ship::Ship()
-    : mVelocity(0.f,0.f,0.f)
-    , mMaxLinearSpeed(500.f)
-    , mMaxRotationSpeed(3.f)
-	, mAmmo(20)
-    , mPlayerId(0)
-    , mLastMoveTimestamp(0.f)
-    , mThrustDir(0.f, 0.f)
-    , mHealth(100)
-    , mIsShooting(false)
-	, mWallRestitution(0.1f)
-	, mShipRestitution(0.1f)
+    : mMaxRotationSpeed(5.f),
+	mMaxLinearSpeed(5000.f),
+	mVelocity(Vector3::Zero),
+	mWallRestitution(0.1f),
+	mShipRestitution(0.1f),
+	mThrustDir(sf::Vector2f(0.f, 0.f)),
+	mPlayerId(0),
+	mIsShooting(false),
+	mHealth(10),
+	mAmmo(20)
+
 {
     SetCollisionRadius(20.f);
 }
 
-void Ship::Update()
+
+void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
 {
-    //GameObject::Update();
+	//process our input....
+
+	int rot = -1;
+	int W = 0;
+	int NW = 45;
+	int N = 90;
+	int NE = 135;
+	int E = 180;
+	int SE = 225;
+	int S = 270;
+	int SW = 315;
+
+
+	//turning...
+	//float newRotation = GetRotation() + inInputState.GetDesiredHorizontalDelta() * mMaxRotationSpeed * inDeltaTime;
+	//SetRotation( newRotation );
+
+	////moving...
+	//float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
+	//mThrustDir = inputForwardDelta;
+
+	float inputHorizontalDelta = inInputState.GetDesiredHorizontalDelta();
+	mThrustDir.x = inputHorizontalDelta;
+	float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
+	mThrustDir.y = -inputForwardDelta;
+
+
+	if (mThrustDir.x == 1 && mThrustDir.y == 1)
+		rot = NE;
+	else if (mThrustDir.x == 1 && mThrustDir.y == -1)
+		rot = NW;
+	else if (mThrustDir.x == -1 && mThrustDir.y == 1)
+		rot = SE;
+	else if (mThrustDir.x == -1 && mThrustDir.y == -1)
+		rot = SW;
+	else if (mThrustDir.x == 1 && mThrustDir.y == 0)
+		rot = N;
+	else if (mThrustDir.x == -1 && mThrustDir.y == 0)
+		rot = S;
+	else if (mThrustDir.x == 0 && mThrustDir.y == 1)
+		rot = E;
+	else if (mThrustDir.x == 0 && mThrustDir.y == -1)
+		rot = W;
+
+	if (rot != -1)
+		SetRotation(rot);
+
+	mIsShooting = inInputState.IsShooting();
 }
 
 //void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
 //{
-//	//process our input....
+//	// 1) Get raw axis input (-1, 0, +1)
+//	float ix = inInputState.GetDesiredHorizontalDelta();  // A = -1, D = +1
+//	float iy = inInputState.GetDesiredVerticalDelta();    // S = -1, W = +1
 //
-//	int rot = -1;
-//	int W = 0;
-//	int NW = 45;
-//	int N = 90;
-//	int NE = 135;
-//	int E = 180;
-//	int SE = 225;
-//	int S = 270;
-//	int SW = 315;
+//	// 2) Build a vector; invert Y if your world Y+ is down (SFML), else drop the '* -1'
+//	sf::Vector2f inVec(ix, -iy);
 //
+//	// 3) If there is any input, normalize and compute angle; otherwise zero thrust
+//	if (inVec.x != 0.f || inVec.y != 0.f)
+//	{
+//		// normalize
+//		float len = std::sqrt(inVec.x * inVec.x + inVec.y * inVec.y);
+//		inVec.x /= len;
+//		inVec.y /= len;
 //
-//	//turning...
-//	//float newRotation = GetRotation() + inInputState.GetDesiredHorizontalDelta() * mMaxRotationSpeed * inDeltaTime;
-//	//SetRotation( newRotation );
+//		// store thrust direction
+//		mThrustDir = inVec;
 //
-//	////moving...
-//	//float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
-//	//mThrustDir = inputForwardDelta;
+//		// compute angle in radians, then to degrees
+//		// atan2(y, x): zero is along +X axis, positive rotates toward +Y
+//		float angleRad = std::atan2(inVec.y, inVec.x);
+//		float angleDeg = angleRad * (180.f / 3.14159265f);
 //
-//	float inputHorizontalDelta = inInputState.GetDesiredHorizontalDelta();
-//	mThrustDir.x = inputHorizontalDelta;
-//	float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
-//	mThrustDir.y = -inputForwardDelta;
+//		SetRotation(angleDeg);
+//	}
+//	else
+//	{
+//		mThrustDir = { 0.f, 0.f };
+//	}
 //
-//
-//	if (mThrustDir.x == 1 && mThrustDir.y == 1)
-//		rot = NE;
-//	else if (mThrustDir.x == 1 && mThrustDir.y == -1)
-//		rot = NW;
-//	else if (mThrustDir.x == -1 && mThrustDir.y == 1)
-//		rot = SE;
-//	else if (mThrustDir.x == -1 && mThrustDir.y == -1)
-//		rot = SW;
-//	else if (mThrustDir.x == 1 && mThrustDir.y == 0)
-//		rot = N;
-//	else if (mThrustDir.x == -1 && mThrustDir.y == 0)
-//		rot = S;
-//	else if (mThrustDir.x == 0 && mThrustDir.y == 1)
-//		rot = E;
-//	else if (mThrustDir.x == 0 && mThrustDir.y == -1)
-//		rot = W;
-//
-//	if (rot != -1)
-//		SetRotation(rot);
-//
+//	// 4) Shooting remains as before
 //	mIsShooting = inInputState.IsShooting();
 //}
-
-void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
-{
-	// 1) Get raw axis input (-1, 0, +1)
-	float ix = inInputState.GetDesiredHorizontalDelta();  // A = -1, D = +1
-	float iy = inInputState.GetDesiredVerticalDelta();    // S = -1, W = +1
-
-	// 2) Build a vector; invert Y if your world Y+ is down (SFML), else drop the '* -1'
-	sf::Vector2f inVec(ix, -iy);
-
-	// 3) If there is any input, normalize and compute angle; otherwise zero thrust
-	if (inVec.x != 0.f || inVec.y != 0.f)
-	{
-		// normalize
-		float len = std::sqrt(inVec.x * inVec.x + inVec.y * inVec.y);
-		inVec.x /= len;
-		inVec.y /= len;
-
-		// store thrust direction
-		mThrustDir = inVec;
-
-		// compute angle in radians, then to degrees
-		// atan2(y, x): zero is along +X axis, positive rotates toward +Y
-		float angleRad = std::atan2(inVec.y, inVec.x);
-		float angleDeg = angleRad * (180.f / 3.14159265f);
-
-		SetRotation(angleDeg);
-	}
-	else
-	{
-		mThrustDir = { 0.f, 0.f };
-	}
-
-	// 4) Shooting remains as before
-	mIsShooting = inInputState.IsShooting();
-}
 
 
 void Ship::SimulateMovement(float inDeltaTime)
@@ -192,7 +188,84 @@ void Ship::ProcessCollisions()
 
 uint32_t Ship::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const
 {
-    return GameObject::Write(inOutputStream, inDirtyState);
+	uint32_t writtenState = 0;
+
+	if (inDirtyState & ESRS_PlayerId)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(GetPlayerId());
+
+		writtenState |= ESRS_PlayerId;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+
+	if (inDirtyState & ESRS_Pose)
+	{
+		inOutputStream.Write((bool)true);
+
+		Vector3 velocity = mVelocity;
+		inOutputStream.Write(velocity.mX);
+		inOutputStream.Write(velocity.mY);
+
+		Vector3 location = GetLocation();
+		inOutputStream.Write(location.mX);
+		inOutputStream.Write(location.mY);
+
+		inOutputStream.Write(GetRotation());
+
+		writtenState |= ESRS_Pose;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	//always write mThrustDir- it's just two bits
+	if (mThrustDir != sf::Vector2f(0.f, 0.f))
+	{
+		inOutputStream.Write(true);
+		inOutputStream.Write(mThrustDir.x > 0.f);
+		inOutputStream.Write(mThrustDir.y > 0.f);
+	}
+	else
+	{
+		inOutputStream.Write(false);
+	}
+
+	if (inDirtyState & ESRS_Color)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(GetColor());
+
+		writtenState |= ESRS_Color;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	if (inDirtyState & ESRS_Health)
+	{
+		inOutputStream.Write((bool)true);
+		inOutputStream.Write(mHealth, 4);
+
+		writtenState |= ESRS_Health;
+	}
+	else
+	{
+		inOutputStream.Write((bool)false);
+	}
+
+	return writtenState;
+}
+
+void Ship::Update()
+{
+	//GameObject::Update();
 }
 
 void Ship::TryMove(Vector3 p_move)

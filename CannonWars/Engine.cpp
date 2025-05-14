@@ -18,7 +18,7 @@ Engine::Engine() :
 
 	World::StaticInit();
 
-	//ScoreBoardManager::StaticInit();
+	ScoreBoardManager::StaticInit();
 
 	// Didn't seem to have any effect turning it off by itself.
 	//SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO );

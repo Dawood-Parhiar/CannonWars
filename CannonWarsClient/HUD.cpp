@@ -61,7 +61,7 @@ void HUD::RenderRoundTripTime()
 
 void HUD::RenderScoreBoard()
 {
-	/*const vector< ScoreBoardManager::Entry >& entries = ScoreBoardManager::sInstance->GetEntries();
+	const vector< ScoreBoardManager::Entry >& entries = ScoreBoardManager::sInstance->GetEntries();
 	Vector3 offset = mScoreBoardOrigin;
 	
 	for( const auto& entry: entries )
@@ -69,7 +69,7 @@ void HUD::RenderScoreBoard()
 		RenderText( entry.GetFormattedNameScore(), offset, entry.GetColor() );
 		offset.mX += mScoreOffset.mX;
 		offset.mY += mScoreOffset.mY;
-	}*/
+	}
 
 }
 

@@ -106,7 +106,7 @@ void SFRenderManager::RenderTexturedWorld()
 // Way of finding this clients cat, and then centre point. - Ronan
 sf::Vector2f SFRenderManager::FindCatCentre()
 {
-	uint32_t catID = (uint32_t)'RCAT';
+	uint32_t catID = (uint32_t)'SHIP';
 	for (auto obj : World::sInstance->GetGameObjects())
 	{
 		// Find a cat.
@@ -127,6 +127,12 @@ sf::Vector2f SFRenderManager::FindCatCentre()
 	}
 	return sf::Vector2f(-1, -1);
 }
+
+void SFRenderManager::SetLocalShipSpawned(bool spawned)
+{
+	m_localShipSpawned = spawned;
+}
+
 //using ronans code above to get the players details for the HUD
 uint8_t SFRenderManager::FindCatHealth()
 {
@@ -153,7 +159,7 @@ sf::Vector2f SFRenderManager::NumberofAliveCats()
 {
 	int numberOfCats = 0;
 	int aliveCats = 0;
-	uint32_t catID = (uint32_t)'RCAT';
+	uint32_t catID = (uint32_t)'SHIP';
 	for (auto obj : World::sInstance->GetGameObjects())
 	{
 		// Find a cat.
@@ -232,8 +238,11 @@ void SFRenderManager::Render()
 	SFWindowManager::sInstance->clear(sf::Color::Black);
 
 	// The game has started.
-	if (mComponents.size() > 0)
+	if (!SFRenderManager::sInstance->IsLocalShipSpawned())
 	{
+		SFWindowManager::sInstance->draw(m_startScreen);
+	}
+
 		// Update the view position.
 		UpdateView();
 
@@ -241,14 +250,12 @@ void SFRenderManager::Render()
 
 		SFRenderManager::sInstance->RenderComponents();
 
-		// Draw shadows
-		RenderShadows();
 
 		// Draw UI elements.
 		SFRenderManager::sInstance->RenderUI();
 
 		// Player is dead.
-		if (FindCatCentre() == sf::Vector2f(-1, -1))
+		if (m_localShipSpawned && FindCatCentre() == sf::Vector2f(-1, -1))
 		{
 			// Print some you are dead screen
 			sf::Vector2f died(view.getCenter().x - view.getSize().x / 2, view.getCenter().y - view.getSize().y / 2);
@@ -270,12 +277,8 @@ void SFRenderManager::Render()
 				SFWindowManager::sInstance->draw(m_winnerScreen);
 			}
 		}
-	}
-	// The game has not started.
-	else
-	{
-		SFWindowManager::sInstance->draw(m_startScreen);
-	}
+
+	
 	
 
 	// Present our back buffer to our front buffer
