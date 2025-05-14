@@ -6,7 +6,7 @@ static constexpr float WORLD_HEIGHT = 1200.f;
 
 
 Ship::Ship()
-    : mVelocity(Vector3::Zero)
+    : mVelocity(0,0,0)
     , mMaxLinearSpeed(500.f)
     , mMaxRotationSpeed(3.f)
 	, mAmmo(20)
@@ -85,22 +85,22 @@ void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
 	float iy = inInputState.GetDesiredVerticalDelta();    // S = -1, W = +1
 
 	// 2) Build a vector; invert Y if your world Y+ is down (SFML), else drop the '* -1'
-	sf::Vector2 inVec(ix, -iy);
+	sf::Vector2f inVec(ix, -iy);
 
 	// 3) If there is any input, normalize and compute angle; otherwise zero thrust
-	if (inVec.mX != 0.f || inVec.mY != 0.f)
+	if (inVec.x != 0.f || inVec.y != 0.f)
 	{
 		// normalize
-		float len = std::sqrt(inVec.mX * inVec.mX + inVec.mY * inVec.mY);
-		inVec.mX /= len;
-		inVec.mY /= len;
+		float len = std::sqrt(inVec.x * inVec.x + inVec.y * inVec.y);
+		inVec.x /= len;
+		inVec.y /= len;
 
 		// store thrust direction
 		mThrustDir = inVec;
 
 		// compute angle in radians, then to degrees
 		// atan2(y, x): zero is along +X axis, positive rotates toward +Y
-		float angleRad = std::atan2(inVec.mY, inVec.mX);
+		float angleRad = std::atan2(inVec.y, inVec.x);
 		float angleDeg = angleRad * (180.f / 3.14159265f);
 
 		SetRotation(angleDeg);

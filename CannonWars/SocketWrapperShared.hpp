@@ -61,41 +61,7 @@ class InputMemoryStream;
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
-//
-//
-//#include "Math.hpp"
-//
-//#include "GameObject.hpp"
-//#include "GameObjectRegistry.hpp"
-//#include "Ship.hpp"
-//#include "InputState.hpp"
-//#include "MemoryBitStream.hpp"
-//#include "InFlightPacket.hpp"
-//#include "TransmissionData.hpp"
-//
-//#include "Category.hpp"
-//#include "Projectile.hpp"
-//#include "Engine.hpp"
-//#include "World.hpp"
-//#include "AckRange.hpp"
-//#include "DeliveryNotificationManager.hpp"
-//
-//#include "Timing.hpp"
-//#include "ConnectionDetails.hpp"
-//
-//
-//#include "StringUtils.hpp"
-//#include "SocketAddress.hpp"
-//#include "SocketAddressFactory.hpp"
-//#include "UDPSocket.hpp"
-//#include "TCPSocket.hpp"
-//#include "SocketUtil.hpp"
-//#include "ByteSwap.hpp"
-//#include "MemoryBitStream.hpp"
-//
-//#include "Player.hpp"
-//#include "../CannonWarsClient/Client.hpp"
-//#include "../CannonWarsServer/Server.hpp"
+
 
 
 #include "Math.hpp"
@@ -118,8 +84,8 @@ class InputMemoryStream;
 
 #include "InputAction.h"
 #include "InputState.hpp"
-//#include "Move.hpp"
-//#include "MoveList.h"
+#include "Move.h"
+#include "MoveList.h"
 
 #include "GameObject.hpp"
 #include "GameObjectRegistry.hpp"
@@ -127,19 +93,19 @@ class InputMemoryStream;
 #include "World.hpp"
 #include "Timing.hpp"
 
-//#include "Yarn.h"
+#include "Yarn.h"
 #include "StringUtils.hpp"
-//#include "ScoreBoardManager.h"
+#include "ScoreBoardManager.h"
 
-//#include "SoundManager.h"
+#include "SoundManager.h"
 
-//#include "WeightedTimedMovingAverage.h"
-//#include "ReplicationCommand.h"
-//#include "NetworkManager.hpp"
+#include "WeightedTimedMovingAverage.h"
+#include "ReplicationCommand.hpp"
+#include "NetworkManager.h"
 #include "Engine.hpp"
 
-//#include "Trigonometry.hpp"
-//#include "VectorAlgebra2D.hpp"
+#include "Trigonometry.hpp"
+#include "VectorAlgebra2D.hpp"
 //#include "Line.hpp"
 //#include "ShadowFactory.hpp"
 #include "ConnectionDetails.hpp"

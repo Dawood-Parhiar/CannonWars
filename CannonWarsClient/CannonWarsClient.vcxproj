@@ -104,13 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\CannonWars\SFML-2.6.2\include;C:\Users\umar_\source\repos\C++ Practice\MDP_CA3\CannonWars</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CannonWars\SFML-2.6.2\include;..\CannonWars;..\SDL\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\CannonWars\SFML-2.6.2\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\CannonWars\SFML-2.6.2\lib;..\SDL\lib\win\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,9 +136,41 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.hpp" />
+    <ClInclude Include="ClientPCH.hpp" />
+    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="NetworkManagerClient.h" />
+    <ClInclude Include="PlayerTextureGenerator.h" />
+    <ClInclude Include="ReplicationManagerClient.h" />
+    <ClInclude Include="ShipClient.h" />
+    <ClInclude Include="SFRenderManager.h" />
+    <ClInclude Include="SFSpriteComponent.h" />
+    <ClInclude Include="SFTextureManager.h" />
+    <ClInclude Include="SFWindowManager.h" />
+    <ClInclude Include="TexturedWorld.hpp" />
+    <ClInclude Include="YarnClient.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientMain.cpp" />
+    <ClCompile Include="ClientPCH.cpp" />
+    <ClCompile Include="FontManger.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="NetworkManagerClient.cpp" />
+    <ClCompile Include="PlayerTextureGenerator.cpp" />
+    <ClCompile Include="ReplicationManagerClient.cpp" />
+    <ClCompile Include="ShipClient.cpp" />
+    <ClCompile Include="SFHealthSpriteComponent.cpp" />
+    <ClCompile Include="SFRenderManger.cpp" />
+    <ClCompile Include="SFSpriteComponent.cpp" />
+    <ClCompile Include="SFTextureManager.cpp" />
+    <ClCompile Include="SFWindowManager.cpp" />
+    <ClCompile Include="TexturedWorld.cpp" />
+    <ClCompile Include="YarnClient.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

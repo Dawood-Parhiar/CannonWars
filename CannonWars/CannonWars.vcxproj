@@ -106,7 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SocketWrapperPCH.hpp</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\CannonWars\SFML-2.6.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\CannonWars\SFML-2.6.2\include;..\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,20 +151,29 @@
     <ClInclude Include="LinkingContext.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="MemoryBitStream.hpp" />
-    <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Move.h" />
+    <ClInclude Include="MoveList.h" />
+    <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Projectile.hpp" />
+    <ClInclude Include="ReplicationCommand.hpp" />
+    <ClInclude Include="ScoreBoardManager.h" />
     <ClInclude Include="Ship.hpp" />
     <ClInclude Include="SocketAddress.hpp" />
     <ClInclude Include="SocketAddressFactory.hpp" />
     <ClInclude Include="SocketUtil.hpp" />
     <ClInclude Include="SocketWrapperPCH.hpp" />
     <ClInclude Include="SocketWrapperShared.hpp" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="StringUtils.hpp" />
     <ClInclude Include="TCPSocket.hpp" />
     <ClInclude Include="Timing.hpp" />
     <ClInclude Include="TransmissionData.hpp" />
+    <ClInclude Include="Trigonometry.hpp" />
     <ClInclude Include="UDPSocket.hpp" />
+    <ClInclude Include="VectorAlgebra2D.hpp" />
+    <ClInclude Include="WeightedTimedMovingAverage.h" />
     <ClInclude Include="World.hpp" />
+    <ClInclude Include="Yarn.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AckRange.cpp" />
@@ -177,8 +186,11 @@
     <ClCompile Include="InFlightPacket.cpp" />
     <ClCompile Include="InputState.cpp" />
     <ClCompile Include="MemoryBitStream.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Move.cpp" />
+    <ClCompile Include="MoveList.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="ScoreBoardManager.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="SocketAddressFactory.cpp" />
@@ -186,11 +198,16 @@
     <ClCompile Include="SocketWrapperPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="TCPSocket.cpp" />
     <ClCompile Include="Timing.cpp" />
     <ClCompile Include="UDPSocket.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="Yarn.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VectorAlgebra2D.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
