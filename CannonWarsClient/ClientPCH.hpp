@@ -1,4 +1,8 @@
 #pragma once
+
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
+
 #include "SocketWrapperPCH.hpp"
 #include "Client.hpp"
 #include "FontManager.h"
@@ -8,7 +12,6 @@
 
 #include <windows.h>
 
-//#include <SDL.h>
 #include "SFML\Graphics.hpp"
 
 #include "Log.h"

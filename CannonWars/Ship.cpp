@@ -6,7 +6,7 @@ static constexpr float WORLD_HEIGHT = 1200.f;
 
 
 Ship::Ship()
-    : mVelocity(0,0,0)
+    : mVelocity(0.f,0.f,0.f)
     , mMaxLinearSpeed(500.f)
     , mMaxRotationSpeed(3.f)
 	, mAmmo(20)

@@ -40,4 +40,9 @@ int main(int argc, const char** argv)
 	}
 }
 #endif
+//
+//int main(int argc, char* argv[])
+//{
+//    if (!Client::StaticInit()) return 1;
+//    return Client::sInstance->Run();
 

@@ -185,6 +185,7 @@
     <ClCompile Include="GameObjectRegistry.cpp" />
     <ClCompile Include="InFlightPacket.cpp" />
     <ClCompile Include="InputState.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="MemoryBitStream.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="MoveList.cpp" />
