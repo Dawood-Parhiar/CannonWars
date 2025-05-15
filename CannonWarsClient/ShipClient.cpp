@@ -1,4 +1,4 @@
-#include "ClientPCH.hpp"
+﻿#include "ClientPCH.hpp"
 
 
 
@@ -11,6 +11,12 @@ ShipClient::ShipClient() :
 	m_cannonSprite.reset(new SFSpriteComponent(this));
 
 	m_cannonSprite->SetTexture(SFTextureManager::sInstance->GetTexture("cannon"));
+
+	// --------------- name text setup ---------------
+	auto& font = *FontManager::sInstance->GetFont("bebas");
+	m_nameText.setFont(font);
+	m_nameText.setCharacterSize(18);
+	m_nameText.setFillColor(sf::Color::White);
 
 	SoundManager::sInstance->PlayMusic();
 	m_healthSprite.reset(new SFHealthSpriteComponent(this));
@@ -28,6 +34,40 @@ void ShipClient::HandleDying()
 }
 
 
+
+void ShipClient::HandleCannonSpriteText()
+{
+	sf::Vector2f worldPos{ GetLocation().mX, GetLocation().mY };
+
+	sf::Sprite& cs = m_cannonSprite->GetSprite();
+	cs.setPosition(worldPos);
+	cs.setRotation(GetRotation() + mCannonRotation);
+
+	// 3) Set the name string
+	std::string name;
+	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
+	{
+		name = ConnectionDetails::sInstance->GetClientName();
+	}
+	else
+	{
+		// remote player
+		auto entry = ScoreBoardManager::sInstance->GetEntry(GetPlayerId());
+		name = entry ? entry->GetPlayerName() : "??";
+	}
+	m_nameText.setString(name);
+
+	// center‐origin the text
+	auto bounds = m_nameText.getLocalBounds();
+	m_nameText.setOrigin(bounds.width / 2.f, bounds.height);
+
+	// position it just above the cannon
+	m_nameText.setPosition(worldPos.x, worldPos.y - cs.getGlobalBounds().height / 2 - 4.f);
+
+	// 4) Draw it
+	SFWindowManager::sInstance->draw(m_nameText);
+}
+
 void ShipClient::Update()
 {
 	// Check if we need to set the texture.
@@ -37,10 +77,7 @@ void ShipClient::Update()
 		m_textureIsDirty = false;
 	}
 
-	//put cannon on top of ship
-	sf::Sprite& cs = m_cannonSprite->GetSprite();
-	cs.setPosition(m_sprite->GetSprite().getPosition());
-	cs.setRotation(GetRotation() + mCannonRotation);
+	
 
 
 	//is this the cat owned by us?
@@ -62,6 +99,8 @@ void ShipClient::Update()
 			
 			//LOG( "Client Move Time: %3.4f deltaTime: %3.4f left rot at %3.4f", latestMove.GetTimestamp(), deltaTime, GetRotation() );
 		}
+		HandleCannonSpriteText();
+
 	}
 	else
 	{

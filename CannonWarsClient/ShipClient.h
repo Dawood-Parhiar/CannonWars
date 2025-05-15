@@ -5,6 +5,7 @@ class ShipClient : public Ship
 public:
 	static	GameObjectPtr	StaticCreate()		{ return GameObjectPtr( new ShipClient() ); }
 
+	void HandleCannonSpriteText();
 	virtual void Update();
 	virtual void	HandleDying() override;
 
@@ -33,4 +34,5 @@ private:
 	SFHealthSpriteComponentPtr m_healthSprite;
 
 	bool m_textureIsDirty;
+	sf::Text m_nameText;
 };

@@ -3,7 +3,7 @@
 //Changes by Kevin
 
 
-//uncomment this when you begin working on the server
+//use of chatGpt:- https://chatgpt.com/share/68255615-a2ac-800c-a0c7-46a313069a6e
 
 bool Server::StaticInit()
 {

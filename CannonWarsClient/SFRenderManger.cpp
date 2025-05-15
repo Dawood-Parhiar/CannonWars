@@ -231,6 +231,53 @@ void SFRenderManager::RenderComponents()
 	}
 }
 
+void SFRenderManager::DrawNamesOnCannon()
+{
+	if (mComponents.size() > 0)
+	{
+		UpdateView();
+
+		RenderTexturedWorld();
+		RenderComponents();
+
+		// --- draw each ship's name above its cannon ---
+		auto& window = *SFWindowManager::sInstance;
+		auto font = *FontManager::sInstance->GetFont("bebas");
+
+		for (auto& go : World::sInstance->GetGameObjects())
+		{
+			if (go->GetClassId() == uint32_t('SHIP'))
+			{
+				Ship* ship = static_cast<Ship*>(go.get());
+				// determine the name
+				std::string name;
+				auto playerId = ship->GetPlayerId();
+				if (playerId == NetworkManagerClient::sInstance->GetPlayerId())
+				{
+					name = ConnectionDetails::sInstance->GetClientName();
+				}
+				else
+				{
+					auto entry = ScoreBoardManager::sInstance->GetEntry(playerId);
+					name = entry ? entry->GetPlayerName() : "???";
+				}
+
+				// build the text
+				sf::Text txt(name, font, 18);
+				txt.setFillColor(sf::Color::White);
+				// center horizontally
+				auto b = txt.getLocalBounds();
+				txt.setOrigin(b.width / 2, b.height);
+				// position just above the cannon
+				auto loc = ship->GetLocation();
+				txt.setPosition(loc.mX, loc.mY - ship->GetCollisionRadius() - 5.f);
+
+				window.draw(txt);
+			}
+		}
+	}
+}
+
 void SFRenderManager::Render()
 {
 
@@ -250,6 +297,8 @@ void SFRenderManager::Render()
 
 		SFRenderManager::sInstance->RenderComponents();
 
+
+		DrawNamesOnCannon();
 
 		// Draw UI elements.
 		SFRenderManager::sInstance->RenderUI();

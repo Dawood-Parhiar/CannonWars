@@ -1,4 +1,4 @@
-#include "ServerPCH.h"
+﻿#include "ServerPCH.h"
 
 ShipServer::ShipServer() :
 	mCatControlType( ESCT_Human ),
@@ -86,7 +86,7 @@ void ShipServer::HandleShooting()
 	{
 		mTimeOfNextShot = now + mTimeBetweenShots;
 
-		// Compute turret�s absolute angle:
+		// Compute turret’s absolute angle:
 		float  aimAngleDeg = GetRotation() + mCannonRotation;
 		float  aimRad = aimAngleDeg * (3.14159265f / 180.f);
 		Vector3 dir{ std::cos(aimRad), std::sin(aimRad), 0.f };
@@ -97,11 +97,16 @@ void ShipServer::HandleShooting()
 		NetworkManagerServer::sInstance->RegisterGameObject(yarn);
 
 		// place at cannon tip
-		Vector3 start = GetLocation() + dir * GetCollisionRadius();
-		yarn->SetLocation(start);
+		yarn->SetLocation(GetLocation() + dir * GetCollisionRadius());
 
-		// shoot
-		yarn->InitFromShooter(this);
+		float muzzleSpeed = 400.f;
+		// 2) fire in the cannon direction
+		yarn->SetVelocity(dir * muzzleSpeed);
+
+		// 3) replicate color, player‐id, rotation if you need them
+		yarn->SetColor(GetColor());
+		yarn->SetPlayerId(GetPlayerId());
+		yarn->SetRotation(GetRotation() + mCannonRotation);
 	}
 }
 

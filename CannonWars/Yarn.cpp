@@ -5,7 +5,7 @@ Yarn::Yarn() :
 	mVelocity( Vector3::Zero ),
 	mPlayerId( 0 )
 {
-	SetScale( GetScale() * .02f );
+	SetScale( GetScale() * 1.f );
 	SetCollisionRadius( 15.f );
 }
 
@@ -91,6 +91,7 @@ void Yarn::InitFromShooter( Ship* inShooter )
 	Vector3 forward = inShooter->GetForwardVector();
 	Vector3 vel = inShooter->GetVelocity();
 	auto normVel = thor::unitVector(sf::Vector2f(vel.mX, vel.mY));
+
 	sf::Vector2f temp = sf::Vector2f(0, -1);
 	thor::rotate(temp, inShooter->GetRotation());
 

@@ -10,6 +10,7 @@ public:
 
 	void Render();
 	void RenderComponents();
+	void DrawNamesOnCannon();
 
 	//vert inefficient method of tracking scene graph...
 	void AddComponent(SFSpriteComponent* inComponent);
