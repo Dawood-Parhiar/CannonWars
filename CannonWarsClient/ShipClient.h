@@ -20,7 +20,7 @@ protected:
 
 
 private:
-	sf::Vector2f		mCatInfo;
+	sf::Vector2f		mShipInfo;
 	void InterpolateClientSidePrediction( float inOldRotation, const Vector3& inOldLocation, const Vector3& inOldVelocity, bool inIsForRemoteCat );
 
 	float				mTimeLocationBecameOutOfSync;
@@ -29,7 +29,7 @@ private:
 	// Either use a fake time that is based on ticks instead of time.
 	// or, do an internal timer contained within the class.
 	sf::Time m_gameTime;
-	SFSpriteComponentPtr m_sprite;
+	SFSpriteComponentPtr m_sprite, m_cannonSprite;
 	SFHealthSpriteComponentPtr m_healthSprite;
 
 	bool m_textureIsDirty;

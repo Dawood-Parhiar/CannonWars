@@ -4,7 +4,6 @@ class InputManager
 {
 public:
 
-
 	static void StaticInit();
 	static unique_ptr< InputManager >	sInstance;
 

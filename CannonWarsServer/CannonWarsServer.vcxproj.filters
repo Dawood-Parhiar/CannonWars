@@ -45,6 +45,9 @@
     <ClInclude Include="MouseServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MountainServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MouseServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MountainServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

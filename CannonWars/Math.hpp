@@ -197,6 +197,13 @@ namespace RoboMath
 	{
 		return inDegrees * PI / 180.0f;
 	}
+
+	// returns a.x*b.x + a.y*b.y
+	inline float Dot2D(const Vector3& a, const Vector3& b)
+	{
+		return a.mX * b.mX + a.mY * b.mY;
+	}
+
 }
 
 namespace Colors

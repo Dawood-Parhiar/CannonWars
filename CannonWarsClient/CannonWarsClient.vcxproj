@@ -141,6 +141,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Log.h" />
+    <ClInclude Include="MountainClient.h" />
     <ClInclude Include="MouseClient.h" />
     <ClInclude Include="NetworkManagerClient.h" />
     <ClInclude Include="PlayerTextureGenerator.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="MountainClient.cpp" />
     <ClCompile Include="MouseClient.cpp" />
     <ClCompile Include="NetworkManagerClient.cpp" />
     <ClCompile Include="PlayerTextureGenerator.cpp" />

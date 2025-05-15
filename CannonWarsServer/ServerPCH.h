@@ -12,5 +12,6 @@
 #include "ShipServer.h"
 #include "MouseServer.h"
 #include "YarnServer.h"
+#include "MountainServer.h"
 
 #include "PersistantPlayerSprites.h"

@@ -15,8 +15,10 @@ Ship::Ship()
 	mPlayerId(0),
 	mIsShooting(false),
 	mHealth(10),
-	mAmmo(20)
-
+	mAmmo(20),
+	mCannonRotation(0.f),
+	mMaxCannonRotationSpeed(90.f)
+	
 {
     SetCollisionRadius(20.f);
 }
@@ -70,6 +72,19 @@ void Ship::ProcessInput(float inDeltaTime, const InputState& inInputState)
 
 	if (rot != -1)
 		SetRotation(rot);
+
+	mCannonLeft = inInputState.GetCannonLeft();
+	mCannonRight = inInputState.GetCannonRight();
+
+	// rotate cannon
+	if (mCannonLeft)
+		mCannonRotation -= mMaxCannonRotationSpeed * inDeltaTime;
+	if (mCannonRight)
+		mCannonRotation += mMaxCannonRotationSpeed * inDeltaTime;
+
+	if (mCannonRotation >= 360.f) mCannonRotation -= 360.f;
+	else if (mCannonRotation < 0.f) mCannonRotation += 360.f;
+
 
 	mIsShooting = inInputState.IsShooting();
 }
@@ -169,6 +184,10 @@ void Ship::ProcessCollisions()
 		GameObject* target = goIt->get();
 		if (target->GetClassId() == 'SHIP')
 		{
+		}
+		if (target->GetClassId() == 'MOUN')
+		{
+			
 		}
 		if (target != this && !target->DoesWantToDie())
 		{
@@ -280,6 +299,29 @@ uint32_t Ship::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyStat
 		inOutputStream.Write(false);
 	}
 
+	if (inDirtyState & ESRS_CannonLeft)
+	{
+		inOutputStream.Write(true);
+		inOutputStream.Write(mCannonLeft);
+		writtenState |= ESRS_CannonLeft;
+	}
+	else
+	{
+		inOutputStream.Write(false);
+	}
+
+	// right
+	if (inDirtyState & ESRS_CannonRight)
+	{
+		inOutputStream.Write(true);
+		inOutputStream.Write(mCannonRight);
+		writtenState |= ESRS_CannonRight;
+	}
+	else
+	{
+		inOutputStream.Write(false);
+	}
+
 	if (inDirtyState & ESRS_Color)
 	{
 		inOutputStream.Write((bool)true);
@@ -303,6 +345,8 @@ uint32_t Ship::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyStat
 	{
 		inOutputStream.Write((bool)false);
 	}
+
+	
 
 	return writtenState;
 }

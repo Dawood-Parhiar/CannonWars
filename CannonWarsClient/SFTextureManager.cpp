@@ -20,6 +20,11 @@ SFTextureManager::SFTextureManager()
 	CacheTexture("died_screen", "../Assets/died_screen.png");
 	CacheTexture("winner_screen", "../Assets/winner_screen.png");
 
+
+	CacheTexture("water", "../Assets/maps/water.png");
+
+	CacheTexture("mountain", "../Assets/mountain_area.png");
+
 	// Player textures.
 	CacheTexture("yellow_ship", "../Assets/ships/yellow_ship.png");;
 	CacheTexture("white_ship", "../Assets/ships/white_ship.png");
@@ -29,7 +34,9 @@ SFTextureManager::SFTextureManager()
 	CacheTexture("blue_ship", "../Assets/ships/blue_ship.png");
 	CacheTexture("pirate_ship", "../Assets/ships/pirate_ship.png");
 	CacheTexture("broken_ship", "../Assets/ships/broken_ship.png");
-	
+
+	CacheTexture("cannon", "../Assets/ships/cannon.png");
+
 	// Healthbar frames.
 	CacheTexture("health10", "../Assets/healthbar/health10.png");
 	CacheTexture("health9", "../Assets/healthbar/health9.png");

@@ -35,6 +35,9 @@ Client::Client()
 
 	GameObjectRegistry::sInstance->RegisterCreationFunction('YARN', YarnClient::StaticCreate);
 
+
+	GameObjectRegistry::sInstance->RegisterCreationFunction('MOUN', MountainClient::StaticCreate);
+
 	//string destination = StringUtils::GetCommandLineArg( 1 );
 	string destination = ConnectionDetails::sInstance->GetClientDestination();
 	//string name = StringUtils::GetCommandLineArg( 2 );

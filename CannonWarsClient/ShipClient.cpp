@@ -8,6 +8,9 @@ ShipClient::ShipClient() :
 	m_textureIsDirty(true)
 {
 	m_sprite.reset(new SFSpriteComponent(this));
+	m_cannonSprite.reset(new SFSpriteComponent(this));
+
+	m_cannonSprite->SetTexture(SFTextureManager::sInstance->GetTexture("cannon"));
 
 	SoundManager::sInstance->PlayMusic();
 	m_healthSprite.reset(new SFHealthSpriteComponent(this));
@@ -33,6 +36,12 @@ void ShipClient::Update()
 		m_sprite->SetTexture(PlayerTextureGenerator::sInstance->GetPlayerTexure(GetPlayerId()));
 		m_textureIsDirty = false;
 	}
+
+	//put cannon on top of ship
+	sf::Sprite& cs = m_cannonSprite->GetSprite();
+	cs.setPosition(m_sprite->GetSprite().getPosition());
+	cs.setRotation(GetRotation() + mCannonRotation);
+
 
 	//is this the cat owned by us?
 	if( GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId() )
@@ -124,7 +133,30 @@ void ShipClient::Read( InputMemoryBitStream& inInputStream )
 		mThrustDir.y = 0.f;
 	}
 
-	
+	// --- CANNON INPUTS ---
+	// Cannon Left
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		inInputStream.Read(mCannonLeft);
+		readState |= ESRS_CannonLeft;
+	}
+	else
+	{
+		mCannonLeft = false;
+	}
+
+	// Cannon Right
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		inInputStream.Read(mCannonRight);
+		readState |= ESRS_CannonRight;
+	}
+	else
+	{
+		mCannonRight = false;
+	}
 
 	inInputStream.Read( stateBit );
 	if( stateBit )
@@ -142,6 +174,8 @@ void ShipClient::Read( InputMemoryBitStream& inInputStream )
 		inInputStream.Read( mHealth, 4 );
 		readState |= ESRS_Health;
 	}
+
+	
 
 	if( GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId() )
 	{

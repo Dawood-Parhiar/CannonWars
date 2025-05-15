@@ -62,6 +62,13 @@ void InputManager::HandleInput( EInputAction inInputAction, int inKeyCode )
 	case sf::Keyboard::Space:
 		UpdateDesireVariableFromKey(inInputAction, mCurrentState.mIsShooting);
 		break;
+	case sf::Keyboard::Left:
+		UpdateDesireVariableFromKey(inInputAction, mCurrentState.mCannonLeft);
+		break;
+	case sf::Keyboard::Right:
+		UpdateDesireVariableFromKey(inInputAction, mCurrentState.mCannonRight);
+		break;
+
 	}
 
 }

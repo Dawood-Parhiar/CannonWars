@@ -37,6 +37,10 @@ void ShipServer::Update()
 				SimulateMovement( deltaTime );
 
 				//LOG( "Server Move Time: %3.4f deltaTime: %3.4f left rot at %3.4f", unprocessedMove.GetTimestamp(), deltaTime, GetRotation() );
+				
+				NetworkManagerServer::sInstance
+					->SetStateDirty(GetNetworkId(), ESRS_CannonLeft | ESRS_CannonRight);
+
 
 			}
 
@@ -60,19 +64,47 @@ void ShipServer::Update()
 
 }
 
+//void ShipServer::HandleShooting()
+//{
+//	float time = Timing::sInstance.GetFrameStartTime();
+//	if( mIsShooting && Timing::sInstance.GetFrameStartTime() > mTimeOfNextShot )
+//	{
+//		//not exact, but okay
+//		mTimeOfNextShot = time + mTimeBetweenShots;
+//
+//		//fire!
+//		YarnPtr yarn = std::static_pointer_cast< Yarn >( GameObjectRegistry::sInstance->CreateGameObject( 'YARN' ) );
+//		yarn->InitFromShooter( this );
+//	}
+//}
+
+
 void ShipServer::HandleShooting()
 {
-	float time = Timing::sInstance.GetFrameStartTime();
-	if( mIsShooting && Timing::sInstance.GetFrameStartTime() > mTimeOfNextShot )
+	float now = Timing::sInstance.GetFrameStartTime();
+	if (mIsShooting && now > mTimeOfNextShot)
 	{
-		//not exact, but okay
-		mTimeOfNextShot = time + mTimeBetweenShots;
+		mTimeOfNextShot = now + mTimeBetweenShots;
 
-		//fire!
-		YarnPtr yarn = std::static_pointer_cast< Yarn >( GameObjectRegistry::sInstance->CreateGameObject( 'YARN' ) );
-		yarn->InitFromShooter( this );
+		// Compute turret’s absolute angle:
+		float  aimAngleDeg = GetRotation() + mCannonRotation;
+		float  aimRad = aimAngleDeg * (3.14159265f / 180.f);
+		Vector3 dir{ std::cos(aimRad), std::sin(aimRad), 0.f };
+
+		// spawn
+		YarnPtr yarn = std::static_pointer_cast<Yarn>(
+			GameObjectRegistry::sInstance->CreateGameObject('YARN'));
+		NetworkManagerServer::sInstance->RegisterGameObject(yarn);
+
+		// place at cannon tip
+		Vector3 start = GetLocation() + dir * GetCollisionRadius();
+		yarn->SetLocation(start);
+
+		// shoot
+		yarn->InitFromShooter(this);
 	}
 }
+
 
 void ShipServer::TakeDamage( int inDamagingPlayerId )
 {

@@ -1,4 +1,4 @@
-#include "ServerPCH.h"
+﻿#include "ServerPCH.h"
 #include "Server.hpp"
 //Changes by Kevin
 
@@ -21,6 +21,8 @@ Server::Server()
 	GameObjectRegistry::sInstance->RegisterCreationFunction('SHIP', ShipServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('MOUS', MouseServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('YARN', YarnServer::StaticCreate);
+	GameObjectRegistry::sInstance->RegisterCreationFunction('MOUN', MountainServer::StaticCreate);
+
 
 	InitNetworkManager();
 
@@ -99,6 +101,49 @@ void Server::SetupWorld()
 {
 	//spawn some random mice
 	//CreateRandomMice(1);
+
+	static const std::vector<Vector3> mountainPositions {
+		// Top region
+		{  400.f,  200.f, 0.f},
+		{ 1600.f,  150.f, 0.f},
+		{ 1200.f,  300.f, 0.f},
+		{  800.f,  100.f, 0.f},
+
+		// Upper‐middle
+		{  300.f,  900.f, 0.f},
+		{ 1400.f,  750.f, 0.f},
+		{ 1000.f, 1100.f, 0.f},
+		{  200.f, 1300.f, 0.f},
+
+		// Middle
+		{  500.f, 1800.f, 0.f},
+		{ 1500.f, 1700.f, 0.f},
+		{  900.f, 2000.f, 0.f},
+		{ 1300.f, 2100.f, 0.f},
+
+		// Lower‐middle
+		{  350.f, 2600.f, 0.f},
+		{ 1600.f, 2400.f, 0.f},
+		{  800.f, 2900.f, 0.f},
+		{ 1200.f, 2800.f, 0.f},
+
+		// Bottom region
+		{  400.f, 3300.f, 0.f},
+		{ 1500.f, 3500.f, 0.f},
+		{  700.f, 3800.f, 0.f},
+		{ 1100.f, 4100.f, 0.f},
+		{  300.f, 4500.f, 0.f},
+		{ 1400.f, 4800.f, 0.f}
+	};
+
+
+	for (auto& pos : mountainPositions)
+	{
+		auto go = std::static_pointer_cast<MountainServer>(
+			GameObjectRegistry::sInstance->CreateGameObject('MOUN'));
+		go->SetLocation(pos);
+	}
+
 }
 
 void Server::DoFrame()

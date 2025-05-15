@@ -15,9 +15,11 @@ public:
         ESRS_Color = 1 << 1,
         ESRS_PlayerId = 1 << 2,
         ESRS_Health = 1 << 3,
+        ESRS_CannonLeft = 1 << 4,
+        ESRS_CannonRight = 1 << 5,
         //ESRS_Shooting = 1 << 4,
 
-        ESRS_AllState = ESRS_Pose | ESRS_Color | ESRS_PlayerId | ESRS_Health //| ESRS_Shooting
+        ESRS_AllState = ESRS_Pose | ESRS_Color | ESRS_PlayerId | ESRS_Health | ESRS_CannonLeft | ESRS_CannonRight
     };
 
     static GameObject* StaticCreate() { return new Ship(); }
@@ -46,12 +48,19 @@ public:
 
     uint8_t& GetHealth() { return mHealth; };
 
+    void SetHealth(uint8_t& health) { mHealth = health; }
+
     virtual uint32_t	Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const override;
 
+    float GetCannonRotation() const { return mCannonRotation; }
+    void  SetCannonRotation(float r) { mCannonRotation = r; }
 
 
 protected:
     Ship();  
+
+    float mCannonRotation;
+    float mMaxCannonRotationSpeed;
 
 private:
 
@@ -76,6 +85,8 @@ protected:
     sf::Vector2f mThrustDir;
     uint8_t   mHealth;
     bool      mIsShooting;
+    bool    mCannonLeft = false;    // true while the player is holding the “turn cannon left” key
+    bool    mCannonRight = false;
 };
 
 typedef std::shared_ptr<Ship> ShipPtr;

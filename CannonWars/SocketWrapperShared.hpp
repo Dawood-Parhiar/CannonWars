@@ -94,6 +94,8 @@ class InputMemoryStream;
 #include "Timing.hpp"
 #include "Mouse.h"
 #include "Yarn.h"
+#include "Mountain.h"
+
 #include "StringUtils.hpp"
 #include "ScoreBoardManager.h"
 

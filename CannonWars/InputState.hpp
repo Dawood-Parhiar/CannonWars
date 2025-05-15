@@ -10,7 +10,9 @@ public:
 		mDesiredLeftAmount(0),
 		mDesiredForwardAmount(0),
 		mDesiredBackAmount(0),
-		mIsShooting(false)
+		mIsShooting(false),
+		mCannonLeft(false),
+		mCannonRight(false)
 	{}
 
 	float GetDesiredHorizontalDelta()	const { return mDesiredRightAmount - mDesiredLeftAmount; }
@@ -20,11 +22,17 @@ public:
 	bool Write(OutputMemoryBitStream& inOutputStream) const;
 	bool Read(InputMemoryBitStream& inInputStream);
 
+	bool GetCannonLeft() const { return mCannonLeft; }
+	bool GetCannonRight() const { return mCannonRight; }
+
 private:
 	friend class InputManager;
 
 	float	mDesiredRightAmount, mDesiredLeftAmount;
 	float	mDesiredForwardAmount, mDesiredBackAmount;
 	bool	mIsShooting;
+	bool mCannonLeft;
+	bool mCannonRight;
+
 };
 
